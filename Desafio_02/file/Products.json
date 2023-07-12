@@ -1,0 +1,65 @@
+[
+  {
+    "id": 2,
+    "title": "Manzana",
+    "description": "2kg",
+    "price": 400,
+    "thumbnail": "manzana.png",
+    "code": "RE95FD",
+    "stock": 60
+  },
+  {
+    "title": "Vaso",
+    "description": "Grande",
+    "price": 300,
+    "thumbnail": "vaso.png",
+    "code": "PG97HD",
+    "stock": 300,
+    "id": 3
+  },
+  {
+    "id": 4,
+    "title": "Fresa",
+    "description": "8kg",
+    "price": 400,
+    "thumbnail": "fresa.png",
+    "code": "PI65GH",
+    "stock": 60
+  },
+  {
+    "id": 5,
+    "title": "Melon",
+    "description": "3kg",
+    "price": 400,
+    "thumbnail": "melon.png",
+    "code": " QF21RW",
+    "stock": 60
+  },
+  {
+    "id": 6,
+    "title": "Kiwi",
+    "description": "4kg",
+    "price": 400,
+    "thumbnail": "kiwi.png",
+    "code": "HG95SAD",
+    "stock": 60
+  },
+  {
+    "id": 7,
+    "title": "Morron",
+    "description": "7kg",
+    "price": 400,
+    "thumbnail": "morron.png",
+    "code": "QW12PO",
+    "stock": 60
+  },
+  {
+    "id": 8,
+    "title": "Zanahoria",
+    "description": "2kg",
+    "price": 400,
+    "thumbnail": "zanahoria.png",
+    "code": "ZZ98WE",
+    "stock": 60
+  }
+]
