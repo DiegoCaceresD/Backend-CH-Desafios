@@ -44,7 +44,7 @@ let productoActualizado = {
     stock: 300
     }
 // persistirProductos();
-// obtenerProductos();
+obtenerProductos();
 // obtenerProductoById(4);
 // actualizarProductoById(3, productoActualizado)
-elimiarProductoById(1);
+// elimiarProductoById(1);
