@@ -1,12 +1,12 @@
 class Producto {
-    constructor(title, description, price, thumbnail, code, stock) {
+  constructor(title, description, price, thumbnail, code, stock) {
     this.title = title;
     this.description = description;
     this.price = price;
     this.thumbnail = thumbnail;
     this.code = code;
     this.stock = stock;
-    }
+  }
 }
 
 class ProductManager {
@@ -88,6 +88,7 @@ class ProductManager {
 
   getProductoById = async (id) => {
     let isProduct = false;
+    let producto;
     try {
       let productos = await this.#fileSystem.promises.readFile(
         this.#filePath,
@@ -98,10 +99,15 @@ class ProductManager {
       this.#productos.forEach((element) => {
         if (element.id == id) {
           isProduct = true;
-          console.log(element);
+          producto = element;
         }
       });
-      if (!isProduct) throw `invalid id ${id}`;
+
+      if (!isProduct) {
+        throw `invalid id ${id}`;
+      } 
+      console.log("Producto encontrado: ", producto);
+      return producto;
     } catch (error) {
       console.log("Error al intentar consultar el id del producto - ", error);
     }
