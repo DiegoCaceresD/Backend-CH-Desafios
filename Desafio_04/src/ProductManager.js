@@ -1,11 +1,36 @@
+import fs from "fs";
+import __dirname from "./utils.js";
+
+
+const requiredProperties = [
+  "code",
+  "title",
+  "description",
+  "price",
+  "stock",
+  "status",
+  "category",
+];
+
 class Producto {
-  constructor(title, description, price, thumbnail, code, stock) {
+  constructor(
+    title,
+    description,
+    price,
+    thumbnails,
+    code,
+    stock,
+    status,
+    category
+  ) {
     this.title = title;
     this.description = description;
     this.price = price;
-    this.thumbnail = thumbnail;
+    this.thumbnails = thumbnails;
     this.code = code;
     this.stock = stock;
+    this.status = status;
+    this.category = category;
   }
 }
 
@@ -18,23 +43,25 @@ class ProductManager {
   constructor() {
     ProductManager.id;
     this.#productos = new Array();
-    this.#dirPath = "./file";
+    this.#dirPath = './file';
     this.#filePath = this.#dirPath + "/Products.json";
-    this.#fileSystem = require("fs");
+    this.#fileSystem = fs;
   }
 
   //vamos a trabajar con promesas por lo que necesito generar un ambiente asincronico
-  addProduct = async (title, description, price, thumbnail, code, stock) => {
-    ProductManager.id++;
+  addProduct = async (producto) => {
     let nuevoProducto = new Producto(
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      Producto.id
+      producto.title,
+      producto.description,
+      producto.price,
+      producto.thumbnails = producto.thumbnails? new Array(producto.thumbnails): undefined,
+      producto.code,
+      producto.stock,
+      producto.status = true,
+      producto.category
     );
+    let invalidProp,nuevoId = 0;
+    let nuevoProductoProperties = Object.keys(producto);
     console.log("Nuevo producto: ", nuevoProducto);
 
     try {
@@ -52,12 +79,30 @@ class ProductManager {
         this.#filePath,
         "utf-8"
       );
-
-      //agrego el nuevo producto al archivo
+      //parseo los productos y los agrego al array
       this.#productos = JSON.parse(productos);
+
+      //busco el mayor de los id y le sumo 1 para asignarlo al nuevo producto
+      this.#productos.forEach((producto) => {
+        if (producto.id > nuevoId) {
+          nuevoId = producto.id;
+        }
+      });
+
+      //valido que el producto tenga las propiedades requeridas
+      requiredProperties.forEach((i) => {
+        if (!nuevoProductoProperties.includes(i)) {
+          invalidProp = i;
+        }
+      });
+      if (invalidProp != null) {
+        throw  `Producto inválido, la propiedad ${invalidProp} es requerida`;
+      }
+
+      // agrego el nuevo producto al archivo
       this.#productos.push({
-        id: ProductManager.id,
         ...nuevoProducto,
+        id: nuevoId + 1,
       });
 
       await this.#fileSystem.promises.writeFile(
@@ -65,24 +110,21 @@ class ProductManager {
         JSON.stringify(this.#productos, null, 2, "\t")
       );
     } catch (error) {
-      console.error(
-        `Error creando producto nuevo: ${JSON.stringify(
-          nuevoProducto
-        )}, detalle del error: ${error}`
-      );
+      console.log(error);
+      throw {status: 400, msg: error}
     }
   };
 
-  getProductos = async () => {
+  getProductos = async () => {  
     try {
       let productos = await this.#fileSystem.promises.readFile(
         this.#filePath,
         "utf-8"
       );
-      // console.log("Productos encontrados: ", JSON.parse(productos));
       return productos;
     } catch (error) {
       console.log("no se ha podido consultar al archivo");
+      throw error
     }
   };
 
@@ -91,10 +133,6 @@ class ProductManager {
     let producto;
     try {
       let productos = await this.getProductos();
-      // let productos = await this.#fileSystem.promises.readFile(
-      //   this.#filePath,
-      //   "utf-8"
-      // );
 
       this.#productos = JSON.parse(productos);
       this.#productos.forEach((element) => {
@@ -106,11 +144,12 @@ class ProductManager {
 
       if (!isProduct) {
         throw `invalid id ${id}`;
-      } 
-      console.log("Producto encontrado: ", producto);
+      }
       return producto;
+
     } catch (error) {
-      console.log("Error al intentar consultar el id del producto - ", error);
+      console.log(error);
+      throw {status: 400, msg: `Error al intentar consultar el id del producto - ${error}` }
     }
   };
 
@@ -119,10 +158,7 @@ class ProductManager {
 
     try {
       let isProduct = false;
-      let productos = await this.#fileSystem.promises.readFile(
-        this.#filePath,
-        "utf-8"
-      );
+      let productos = await this.getProductos();
 
       this.#productos = JSON.parse(productos);
       this.#productos.map((producto) => {
@@ -141,17 +177,16 @@ class ProductManager {
       );
       if (!isProduct) throw `invalid id ${id}`;
     } catch (error) {
-      console.log("Error al intentar consultar el id del producto - ", error);
+      console.log(`Error al intentar consultar el id del producto - ${error}`);
+      throw {status:400, msg: `Error al intentar consultar el id del producto - ${error}`}
     }
   };
 
   deleteProduct = async (id) => {
     let productsFilter;
     try {
-      let productos = await this.#fileSystem.promises.readFile(
-        this.#filePath,
-        "utf-8"
-      );
+      let productos = await this.getProductos();
+
       this.#productos = JSON.parse(productos);
       productsFilter = this.#productos.filter(
         (productos) => productos.id != id
@@ -167,4 +202,4 @@ class ProductManager {
   };
 }
 
-module.exports = ProductManager;
+export default ProductManager;

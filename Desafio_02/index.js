@@ -43,8 +43,8 @@ let productoActualizado = {
     code: "PG97HD",
     stock: 300
     }
-// persistirProductos();
-obtenerProductos();
+persistirProductos();
+// obtenerProductos();
 // obtenerProductoById(4);
 // actualizarProductoById(3, productoActualizado)
 // elimiarProductoById(1);
