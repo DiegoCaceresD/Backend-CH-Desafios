@@ -1,0 +1,17 @@
+<h2>Añadir Nuevo Producto</h2>
+<form aria-label="Añadir nuevo producto" id="formProduct">
+    <input class="newProduct" placeholder="Nombre" name="nombre" id="nombre" type="text" required>
+    <input class="newProduct" placeholder="Descripción" name="descripcion" id="descripcion" type="text" required>
+    <input class="newProduct" placeholder="Precio" name="precio" id="precio" type="number" required>
+    <input class="newProduct" placeholder="Codigo" name="codigo" id="codigo" type="text" required>
+    <input class="newProduct" placeholder="Category" name="category" id="category" type="text" required>
+    <input class="newProduct" placeholder="stock" name="stock" id="stock" type="number" required>
+    <button class="addBtn" type="submit" id="add-btn" >Registrar </button>
+</form>
+<h3>Productos: </h3>
+<div id="products">
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

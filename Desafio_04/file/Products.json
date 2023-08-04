@@ -9,13 +9,13 @@
     "stock": 60
   },
   {
-    "title": "Vaso",
-    "description": "Grande",
-    "price": 300,
-    "thumbnail": "vaso.png",
-    "code": "PG97HD",
-    "stock": 300,
-    "id": 3
+    "id": 4,
+    "title": "Fresa",
+    "description": "8kg",
+    "price": 400,
+    "thumbnail": "fresa.png",
+    "code": "PI65GH",
+    "stock": 60
   },
   {
     "id": 5,
@@ -36,26 +36,21 @@
     "stock": 60
   },
   {
-    "title": "Fresa",
-    "description": "8kg",
+    "id": 7,
+    "title": "Morron",
+    "description": "7kg",
     "price": 400,
-    "code": "PI65GH",
-    "stock": 60,
-    "status": true,
-    "category": "fruta",
-    "id": 7
+    "thumbnail": "morron.png",
+    "code": "QW12PO",
+    "stock": 60
   },
   {
-    "title": "Fresa",
-    "description": "8kg",
-    "price": "400",
-    "thumbnails": [
-      "C:\\Users\\dcaceres\\Desktop\\CURSOS\\curso backend\\pre-entregas\\01_pre-entrega\\src\\public\\img\\1690238805787-fresa.jpg"
-    ],
-    "code": "PI65GH",
-    "stock": "60",
-    "status": true,
-    "category": "fruta",
-    "id": 8
+    "id": 8,
+    "title": "Zanahoria",
+    "description": "2kg",
+    "price": 400,
+    "thumbnail": "zanahoria.png",
+    "code": "ZZ98WE",
+    "stock": 60
   }
 ]
